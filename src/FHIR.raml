@@ -1,0 +1,394 @@
+#%RAML 0.8
+title: FHIR
+baseUri: http://fhir.healthintersections.com.au/open
+version: v1
+/{type}:
+  displayName: TYPE
+  post:
+    description: |
+      Create a new type
+    body:
+      application/json+fhir: !!null
+      application/xml+fhir:
+    responses:
+      201:
+        description: |
+          Succesfully created a new type
+        headers:
+          Location:
+            description: |
+              Location of the newly created resource [base]/[type]/[id]/_history/[vid]
+            type: string
+            required: yes
+        body:
+          application/json+fhir:
+          application/xml+fhir:
+      400:
+        description: |
+          Bad Request - Resource cound not be parsed or failed basic FHIR validation rules
+        body:
+          application/json+fhir:
+          application/xml+fhir:
+      404:
+        description: |
+          Not Found - resource type not support, or not a FHIR validation rules
+        body:
+          application/json+fhir:
+          application/xml+fhir:
+  /{id}:
+    displayName: Resource
+    get:
+      responses:
+        200:
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        410:
+          description: |
+            Tried to get a deleted resource
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        404:
+          description: |
+            Tried to get an unknown resource
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        422:
+          description: |
+            Unprocessable Entity - the proposed resource violated applicable FHIR  profiles or server business rules.  This should be accompanied by an OperationOutcome resource providing additional detail.
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+    delete:
+      description: |
+        Delete resource
+      responses:
+        204:
+          description: |
+            Succesfully deleted resource
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        405:
+          description: |
+            Method Not allowed - delete is not allowed
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        404:
+          description: |
+            Not Found - resource was not found
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+    put:
+      description: |
+        Update an existing instance
+      body:
+        application/json+fhir:
+        application/xml+fhir:
+      responses:
+        200:
+          description: |
+            Succesfully updated the instance 
+          headers:
+            Location:
+              description: |
+                Location of the newly created resource [base]/[type]/[id]/_history/[vid]
+              type: string
+              required: yes
+            Last-Modified:
+              description: |
+                When resource was last modified
+              type: string
+              required: yes
+            Content-Location:
+              description: |
+                Refers to the specific version created by the update interaction. 
+              type: string
+              required: yes
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        201:
+          description: |
+            Succesfully created the instance 
+          headers:
+            Location:
+              description: |
+                Location of the newly created resource [base]/[type]/[id]/_history/[vid]
+              type: string
+              required: yes
+            Last-Modified:
+              description: |
+                When resource was last modified
+              type: string
+              required: yes
+            Content-Location:
+              description: |
+                Refers to the specific version created by the update interaction. 
+              type: string
+              required: yes
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        400:
+          description: |
+            Bad Request - Resource cound not be parsed or failed basic FHIR validation rules
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        404:
+          description: |
+            Not Found - resource type not support, or not a FHIR validation rules
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        405:
+          description: |
+            Method Not allowed - the resource did not exist prior to the update, and the server does not allow client defined ids
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        409:
+          description: |
+            Version conflict management
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        412: 
+          description: |
+            Version conflict management
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+        422:
+          description: |
+            Unprocessable Entity - the proposed resource violated applicable FHIR  profiles or server business rules.  This should be accompanied by an OperationOutcome resource providing additional detail.
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+    /_history:
+      displayName: HISTORY
+      get:
+        responses:
+          200:
+            body:
+             application/json+fhir:
+             application/xml+fhir:
+      /{vid}:
+        displayName: VREAD
+        get:
+          responses:
+            200:
+              body:
+                application/json+fhir:
+                application/xml+fhir:
+        /_tags:
+          displayName: TAGS
+          get:
+            description: |
+              get a list of tags used for the nominated version of the resource.  This duplicates the HTTP header entries.
+            responses:
+              200:
+                description: |
+                 Succesfully retrieved resource
+                body:
+                  application/json+fhir:
+                  application/xml+fhir: 
+          post:
+            description: |
+              Affix tags in the list to the nominated verion of the resource
+            body:
+              application/json+fhir: !!null
+              application/xml+fhir:            
+            responses:
+              201:
+                description: |
+                  Succesfully affix tags
+                body:
+                  application/json+fhir:
+                  application/xml+fhir: 
+          /_delete:
+            displayName: Delete
+            post:
+              description: |
+                Removes all tags in the provided list of tags for the nominated version of the resource
+              body:
+                application/json+fhir:
+                application/xml+fhir:
+              responses:
+                204:
+                  description: Successful deletion of tags
+                  body:
+                    application/json+fhir:
+                    application/xml+fhir: 
+                                    
+    /_tags:
+      displayName: TAGS
+      get:
+        description: |
+          get a list of tags used for the nominated resource. This duplicates the HTTP header entries
+        responses:
+          200:
+            description: |
+              Succesfully retrieved resource
+            body:
+              application/json+fhir:
+              application/xml+fhir:
+      post:
+        description: |
+          Affix tags in the list to the nominated resource
+        body:
+          application/json: !!null
+        responses:
+          201:
+            description: |
+              Succesfully affix tags
+            body:
+              application/json+fhir:
+              application/xml+fhir:  
+      /_delete:
+        displayName: Delete
+        post:
+          description: |
+            Removes all tags in the provided list of tags for the nominated resource
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+          responses:
+            204:
+              body:
+                application/json+fhir:
+                application/xml+fhir:
+  /_search:
+    displayName: SEARCH
+    get:
+      responses:
+        200:
+          body:
+            application/json+fhir:
+            application/atom+xml:
+  /_history:
+    displayName: HISTORY
+    get:
+      responses:
+        200:
+          body:
+            application/json+fhir:
+            application/atom+xml:
+  /_validate:
+    /{id}:
+      displayName: VALIDATE
+      post:
+        description: |
+          Create a new resource
+        body:
+          application/json+fhir: !!null
+          application/xml+fhir:
+        responses:
+          201:
+            description: |
+              Validates a type
+            headers:
+              Location:
+                description: |
+                  Location of the newly created resource
+                type: string
+                required: no
+            body:
+              application/json+fhir:
+              application/xml+fhir:
+  /_tags:
+    displayName: TAGS
+    get:
+      description: |
+        get a list of tags used for the nominated resource type
+      responses:
+        200:
+          description: |
+            Succesfully retrieved resource
+          body:
+            application/json+fhir:
+            application/xml+fhir:
+      
+/metadata:
+  displayName: CONFORMANCE
+  get:
+    description: |
+      Retrieve resource
+    responses:
+      200:
+        description: |
+          Succesfully retrieved resource
+        body:
+            application/json+fhir:
+            application/xml+fhir:
+/_history:
+  displayName: HISTORY
+  get:
+    description: |
+      Whole System History
+    responses:
+      200:
+        description: |
+          Succesfully retrieved resource
+        body:
+          application/json+fhir:
+          application/xml+fhir:
+/_tags:
+  displayName: TAGS
+  get:
+    description: |
+      get a list of all tags
+    responses:
+      200:
+        description: |
+          Succesfully retrieved resource
+        body:
+          application/json+fhir:
+          application/xml+fhir:
+  
+/:
+  displayName: Whole System
+  post:
+    description: |
+      Create a new resource
+    body:
+      application/json: !!null
+    responses:
+      201:
+        description: |
+          Succesfully created a new resource
+        headers:
+          Location:
+            description: |
+              Location of the newly created resource
+            type: string
+            required: no
+        body:
+          application/json+fhir:
+          application/xml+fhir:
+  get:
+    description: |
+      Retrieve resource
+    responses:
+      200:
+        description: |
+          Succesfully retrieved resource
+        body:
+          application/json+fhir:
+          application/xml+fhir:
+  
+  
+  
+      
+
+
+   
+
+                      
+                      
+
