@@ -17,6 +17,7 @@ FHIR - is the a next generation standards framework created by HL7.  FHIR combin
 ###### Option 1
 - Simply download the FHIR.raml (https://github.com/lheritage/FHIR/tree/master/src/FHIR.raml)
 - Create a physical and virtual service using this RAML document
+
 ###### Option 2
 - Download FHIRAPIHook.zip (https://github.com/lheritage/FHIR/tree/master/dist)
 - Login to PolicyManager  example: http://localhost:9900
