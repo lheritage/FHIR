@@ -1,5 +1,5 @@
 # FHIR API HOOK by SOA Software
-Put a nice company logo image here. 
+(http://soa.com) 
 Link to product documentation and product overview page
 ## FHIR API 
 ### About the API
@@ -39,7 +39,14 @@ Only if you chose Option 2 above.
 
 
 #### Offer an Anonymous Contract
--
+- Click on the Virtual Service
+- From the Details tab, click on Offer Contract from the Actions pane on the right
+- Give a Contract Name
+- In the Access Control box, select "Allow consumer (application or organization) users that do not have a contract explicitly assigned"
+- Once contract is created, it will appear in the Consumers section on the Details tab with the Approval Status shown as "Draft".   We need to activate it. 
+- Click on the contract you created.
+- In the Contract Workflow pane over on the right, click on "Activate Contract"
+- You are now done
 
 #### Verify Connectivity
 - Using your browser http://{Your HOST example: localhost:9901}/fhir/v1/patient/1
