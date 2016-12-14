@@ -13,9 +13,8 @@ FHIR - is the a next generation standards framework created by HL7.  FHIR combin
 
 ### Getting Started Instructions
 #### Download and Import
-##### Two Options
-###### Option 1
-- Simply download the FHIR.raml (https://github.com/lheritage/FHIR/tree/master/src/FHIR.raml)
+
+- Simply download the FHIR.raml or FHIRSwagger.yaml 
 - Import into your API Management tool
 
 
