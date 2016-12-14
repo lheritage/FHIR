@@ -1,9 +1,23 @@
 #%RAML 0.8
 title: FHIR
-baseUri: http://fhir.healthintersections.com.au/open
-version: v1
+baseUri: http://fhirtest.uhn.ca/baseDstu2
+version: v2
+/$meta:
+  displayName: $meta
+  get:
+    responses:
+      200:
+        description: |
+          Successfully retrieved resource(s)
 /{type}:
   displayName: TYPE
+  get:
+    responses:
+      200:
+        body:
+          application/json+fhir: !!null
+          application/xml+fhir:
+          application/json:
   post:
     description: |
       Create a new type
@@ -35,6 +49,21 @@ version: v1
         body:
           application/json+fhir:
           application/xml+fhir:
+  /$meta:
+    displayName: meta operations
+    get:
+      responses:
+        200:
+          description: |
+            Successfully retrieved resource(s)
+  /$validate:
+    displayName: validate a resource
+    get:
+      responses:
+        200:
+          body:
+            application/json+fhir:
+            application/xml+fhir:
   /{id}:
     displayName: Resource
     get:
@@ -170,6 +199,22 @@ version: v1
           body:
             application/json+fhir:
             application/xml+fhir:
+    /$everything:
+      get:
+        responses:
+          200:
+            body:
+              application/json+fhir:
+              application/xml+fhir:
+    /$validate:
+      displayName: validate a resource
+      get:
+        responses:
+          200:
+             body:
+              application/json+fhir:
+              application/xml+fhir:
+      
     /_history:
       displayName: HISTORY
       get:
@@ -381,7 +426,7 @@ version: v1
         body:
           application/json+fhir:
           application/xml+fhir:
-  
+
   
   
       
