@@ -1,0 +1,469 @@
+swagger: '2.0'
+host: fhirtest.uhn.ca
+basePath: /baseDstu2
+schemes:
+  - https
+paths:
+  /Observation/{id}/_tags:
+    get:
+      description: >
+        get a list of tags used for the nominated resource. This duplicates the
+        HTTP header entries
+      operationId: 'GET /Observation/{id}/_tags'
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '200':
+          description: |
+            Succesfully retrieved resource
+    post:
+      description: |
+        Affix tags in the list to the nominated resource
+      operationId: 'POST /Observation/{id}/_tags'
+      consumes:
+        - application/json
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '201':
+          description: |
+            Succesfully affix tags
+  /Observation/{id}/_history/{vid}/_tags/_delete:
+    post:
+      description: >
+        Removes all tags in the provided list of tags for the nominated version
+        of the resource
+      operationId: 'POST /Observation/{id}/_history/{vid}/_tags/_delete'
+      consumes:
+        - application/json+fhir
+        - application/xml+fhir
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: vid
+          type: string
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '204':
+          description: Successful deletion of tags
+  /Observation/{id}/_tags/_delete:
+    post:
+      description: |
+        Removes all tags in the provided list of tags for the nominated resource
+      operationId: 'POST /Observation/{id}/_tags/_delete'
+      consumes:
+        - application/json+fhir
+        - application/xml+fhir
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '204':
+          description: Status 204
+  /metadata:
+    get:
+      description: |
+        Retrieve resource
+      operationId: GET /metadata
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      responses:
+        '200':
+          description: |
+            Succesfully retrieved resource
+  /Observation/$meta:
+    get:
+      description: ''
+      operationId: 'GET /Observation/$meta'
+      responses:
+        '200':
+          description: |
+            Successfully retrieved resource(s)
+  /Observation/{id}/$validate:
+    get:
+      description: ''
+      operationId: 'GET /Observation/{id}/$validate'
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '200':
+          description: Status 200
+  /Observation/{id}/_history/{vid}:
+    get:
+      description: ''
+      operationId: 'GET /Observation/{id}/_history/{vid}'
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: vid
+          type: string
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '200':
+          description: Status 200
+  /Observation/{id}:
+    get:
+      description: ''
+      operationId: 'GET /Observation/{id}'
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '200':
+          description: Status 200
+        '404':
+          description: |
+            Tried to get an unknown resource
+        '410':
+          description: |
+            Tried to get a deleted resource
+        '422':
+          description: >
+            Unprocessable Entity - the proposed resource violated applicable
+            FHIR  profiles or server business rules.  This should be accompanied
+            by an OperationOutcome resource providing additional detail.
+    put:
+      description: |
+        Update an existing instance
+      operationId: 'PUT /Observation/{id}'
+      consumes:
+        - application/json+fhir
+        - application/xml+fhir
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '200':
+          description: |
+            Succesfully updated the instance 
+        '201':
+          description: |
+            Succesfully created the instance 
+        '400':
+          description: >
+            Bad Request - Resource cound not be parsed or failed basic FHIR
+            validation rules
+        '404':
+          description: >
+            Not Found - resource type not support, or not a FHIR validation
+            rules
+        '405':
+          description: >
+            Method Not allowed - the resource did not exist prior to the update,
+            and the server does not allow client defined ids
+        '409':
+          description: |
+            Version conflict management
+        '412':
+          description: |
+            Version conflict management
+        '422':
+          description: >
+            Unprocessable Entity - the proposed resource violated applicable
+            FHIR  profiles or server business rules.  This should be accompanied
+            by an OperationOutcome resource providing additional detail.
+    delete:
+      description: |
+        Delete resource
+      operationId: 'DELETE /Observation/{id}'
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '204':
+          description: |
+            Succesfully deleted resource
+        '404':
+          description: |
+            Not Found - resource was not found
+        '405':
+          description: |
+            Method Not allowed - delete is not allowed
+  /Observation/_search:
+    get:
+      description: ''
+      operationId: 'GET /Observation/_search'
+      produces:
+        - application/atom+xml
+        - application/json+fhir
+      responses:
+        '200':
+          description: Status 200
+  /Observation/{id}/_history/{vid}/_tags:
+    get:
+      description: >
+        get a list of tags used for the nominated version of the resource.  This
+        duplicates the HTTP header entries.
+      operationId: 'GET /Observation/{id}/_history/{vid}/_tags'
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: vid
+          type: string
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '200':
+          description: |
+            Succesfully retrieved resource
+    post:
+      description: |
+        Affix tags in the list to the nominated verion of the resource
+      operationId: 'POST /Observation/{id}/_history/{vid}/_tags'
+      consumes:
+        - application/json+fhir
+        - application/xml+fhir
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: vid
+          type: string
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '201':
+          description: |
+            Succesfully affix tags
+  /_tags:
+    get:
+      description: |
+        get a list of all tags
+      operationId: GET /_tags
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      responses:
+        '200':
+          description: |
+            Succesfully retrieved resource
+  /:
+    get:
+      description: |
+        Retrieve resource
+      operationId: GET /
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      responses:
+        '200':
+          description: |
+            Succesfully retrieved resource
+    post:
+      description: |
+        Create a new resource
+      operationId: POST /
+      consumes:
+        - application/json
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      responses:
+        '201':
+          description: |
+            Succesfully created a new resource
+  /Observation/_validate/{id}:
+    post:
+      description: |
+        Create a new resource
+      operationId: 'POST /Observation/_validate/{id}'
+      consumes:
+        - application/json+fhir
+        - application/xml+fhir
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '201':
+          description: |
+            Validates a type
+  /Observation:
+    get:
+      description: 'Get Observation'
+      operationId: 'GET /Observation'
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      responses:
+        '200':
+          description: Status 200
+    post:
+      description: |
+        Create a new type
+      operationId: 'POST /Observation'
+      consumes:
+        - application/json+fhir
+        - application/xml+fhir
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      responses:
+        '201':
+          description: |
+            Succesfully created a new type
+        '400':
+          description: >
+            Bad Request - Resource cound not be parsed or failed basic FHIR
+            validation rules
+        '404':
+          description: >
+            Not Found - resource type not support, or not a FHIR validation
+            rules
+  /Observation/_tags:
+    get:
+      description: |
+        get a list of tags used for the nominated resource type
+      operationId: 'GET /Observation/_tags'
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      responses:
+        '200':
+          description: |
+            Succesfully retrieved resource
+  /$meta:
+    get:
+      description: ''
+      operationId: GET /$meta
+      responses:
+        '200':
+          description: |
+            Successfully retrieved resource(s)
+  /_history:
+    get:
+      description: |
+        Whole System History
+      operationId: GET /_history
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      responses:
+        '200':
+          description: |
+            Succesfully retrieved resource
+  /Observation/$validate:
+    get:
+      description: ''
+      operationId: 'GET /Observation/$validate'
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      responses:
+        '200':
+          description: Status 200
+  /Observation/{id}/$everything:
+    get:
+      description: ''
+      operationId: 'GET /Observation/{id}/$everything'
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '200':
+          description: Status 200
+  /Observation/_history:
+    get:
+      description: ''
+      operationId: 'GET /Observation/_history'
+      produces:
+        - application/atom+xml
+        - application/json+fhir
+      responses:
+        '200':
+          description: Status 200
+  /Observation/{id}/_history:
+    get:
+      description: ''
+      operationId: 'GET /Observation/{id}/_history'
+      produces:
+        - application/json+fhir
+        - application/xml+fhir
+      parameters:
+        - required: true
+          in: path
+          name: id
+          type: string
+      responses:
+        '200':
+          description: Status 200
+info:
+  title: FHIR Observation
+  description: ''
+  version: DSTU 2
+x-axway:
+  corsEnabled: true
+  basePaths:
+    - ''
+  serviceType: rest
+  deprecated: false
+  tags: {}
